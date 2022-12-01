@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'elevatedbutton.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -12,12 +14,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hive Flutter'),
+        title: const Text('Hive Flutter'),
       ),
-      body: ElevatedButton(
-        child: Text('Add Item'),
-        onPressed: () {},
-      ),
+      body: const Button(),
     );
   }
 }
