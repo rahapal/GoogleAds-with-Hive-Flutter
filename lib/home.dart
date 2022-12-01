@@ -10,6 +10,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Hive Flutter'),
+      ),
+      body: ElevatedButton(
+        child: Text('Add Item'),
+        onPressed: () {},
+      ),
+    );
   }
 }
