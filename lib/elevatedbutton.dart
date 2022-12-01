@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hivefinal/models/details.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Button extends StatefulWidget {
   const Button({super.key});
@@ -15,6 +17,7 @@ class _ButtonState extends State<Button> {
   TextEditingController _name = TextEditingController();
   TextEditingController _address = TextEditingController();
   TextEditingController _phone = TextEditingController();
+  late File _image;
 
   late Box<Details> detailbox;
 
@@ -22,6 +25,16 @@ class _ButtonState extends State<Button> {
   void initState() {
     super.initState();
     detailbox = Hive.box('details');
+  }
+
+  void PickImage() async {
+    var image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery)
+        .then((image) {
+      setState(() {
+        _image = image?.path as File;
+      });
+    });
   }
 
   @override
@@ -37,9 +50,15 @@ class _ButtonState extends State<Button> {
             builder: (_) {
               return Dialog(
                 child: SizedBox(
-                  height: 250,
+                  height: 400,
                   child: Column(
                     children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          PickImage();
+                        },
+                        child: Text('Select Image'),
+                      ),
                       TextField(
                         controller: _name,
                         decoration: const InputDecoration(
@@ -61,6 +80,7 @@ class _ButtonState extends State<Button> {
                       ElevatedButton(
                         onPressed: () {
                           Details details = Details(
+                              image: _image.path,
                               id: '${Random().nextInt(10000)}',
                               name: _name.text,
                               address: _address.text,

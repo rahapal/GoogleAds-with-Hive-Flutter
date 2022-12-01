@@ -21,13 +21,14 @@ class DetailsAdapter extends TypeAdapter<Details> {
       name: fields[1] as String,
       address: fields[2] as String,
       phone: fields[3] as String,
+      image: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Details obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class DetailsAdapter extends TypeAdapter<Details> {
       ..writeByte(2)
       ..write(obj.address)
       ..writeByte(3)
-      ..write(obj.phone);
+      ..write(obj.phone)
+      ..writeByte(4)
+      ..write(obj.image);
   }
 
   @override

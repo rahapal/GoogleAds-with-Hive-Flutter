@@ -34,6 +34,7 @@ class _ViewPageState extends State<ViewPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Image.network(details!.image),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

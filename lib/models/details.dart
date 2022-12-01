@@ -12,11 +12,14 @@ class Details {
   String address;
   @HiveField(3)
   String phone;
+  @HiveField(4)
+  String image;
 
   Details({
     required this.id,
     required this.name,
     required this.address,
     required this.phone,
+    required this.image,
   });
 }
