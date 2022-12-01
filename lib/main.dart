@@ -13,8 +13,8 @@ Future<void> main() async {
   Directory directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   Hive.registerAdapter(DetailsAdapter());
-  await Hive.openBox<Details>('details');
-
+  var Dbox = await Hive.openBox<Details>('details');
+  print(Dbox.values);
   runApp(
     const MyApp(),
   );

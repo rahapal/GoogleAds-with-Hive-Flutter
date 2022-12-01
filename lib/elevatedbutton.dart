@@ -66,9 +66,11 @@ class _ButtonState extends State<Button> {
                               address: _address.text,
                               phone: _phone.text);
 
-                          setState(() {
-                            detailbox.put(details.id, details);
-                          });
+                          setState(
+                            () {
+                              detailbox.put(details.id, details);
+                            },
+                          );
 
                           _name.clear();
                           _address.clear();
