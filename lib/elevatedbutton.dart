@@ -14,46 +14,49 @@ class _ButtonState extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: const Text('Add Item'),
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (_) {
-            return Dialog(
-              child: SizedBox(
-                height: 250,
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _name,
-                      decoration: const InputDecoration(
-                        labelText: 'Full Name',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        child: const Text('Add Item'),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) {
+              return Dialog(
+                child: SizedBox(
+                  height: 250,
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _name,
+                        decoration: const InputDecoration(
+                          labelText: 'Full Name',
+                        ),
                       ),
-                    ),
-                    TextField(
-                      controller: _address,
-                      decoration: const InputDecoration(
-                        labelText: 'Adress',
+                      TextField(
+                        controller: _address,
+                        decoration: const InputDecoration(
+                          labelText: 'Adress',
+                        ),
                       ),
-                    ),
-                    TextField(
-                      controller: _phone,
-                      decoration: const InputDecoration(
-                        labelText: 'Contact',
+                      TextField(
+                        controller: _phone,
+                        decoration: const InputDecoration(
+                          labelText: 'Contact',
+                        ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Save'),
-                    ),
-                  ],
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('Save'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        );
-      },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

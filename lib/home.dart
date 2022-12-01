@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hivefinal/viewpage.dart';
 
 import 'elevatedbutton.dart';
 
@@ -16,7 +17,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Hive Flutter'),
       ),
-      body: const Button(),
+      body: SizedBox(
+        height: 700,
+        child: Column(
+          children: [
+            ViewPage(),
+            Button(),
+          ],
+        ),
+      ),
     );
   }
 }
