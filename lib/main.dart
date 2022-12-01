@@ -14,6 +14,7 @@ Future<void> main() async {
   Hive.init(directory.path);
   Hive.registerAdapter(DetailsAdapter());
   await Hive.openBox<Details>('details');
+
   runApp(
     const MyApp(),
   );

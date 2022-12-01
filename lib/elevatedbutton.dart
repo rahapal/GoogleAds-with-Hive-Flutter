@@ -1,4 +1,8 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hivefinal/models/details.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Button extends StatefulWidget {
   const Button({super.key});
@@ -12,6 +16,14 @@ class _ButtonState extends State<Button> {
   TextEditingController _address = TextEditingController();
   TextEditingController _phone = TextEditingController();
 
+  late Box<Details> detailbox;
+
+  @override
+  void initState() {
+    super.initState();
+    detailbox = Hive.box('details');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,6 +31,7 @@ class _ButtonState extends State<Button> {
       child: ElevatedButton(
         child: const Text('Add Item'),
         onPressed: () {
+          print(detailbox.values);
           showDialog(
             context: context,
             builder: (_) {
@@ -46,7 +59,22 @@ class _ButtonState extends State<Button> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Details details = Details(
+                              id: '${Random().nextInt(10000)}',
+                              name: _name.text,
+                              address: _address.text,
+                              phone: _phone.text);
+
+                          setState(() {
+                            detailbox.put(details.id, details);
+                          });
+
+                          _name.clear();
+                          _address.clear();
+                          _phone.clear();
+                          Navigator.pop(context);
+                        },
                         child: const Text('Save'),
                       ),
                     ],
