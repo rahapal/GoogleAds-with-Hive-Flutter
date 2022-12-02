@@ -17,7 +17,7 @@ class _ButtonState extends State<Button> {
   TextEditingController _name = TextEditingController();
   TextEditingController _address = TextEditingController();
   TextEditingController _phone = TextEditingController();
-  late File _image;
+  File? _image;
 
   late Box<Details> detailbox;
 
@@ -27,13 +27,12 @@ class _ButtonState extends State<Button> {
     detailbox = Hive.box('details');
   }
 
-  void PickImage() async {
-    var image = await ImagePicker()
-        .pickImage(source: ImageSource.gallery)
-        .then((image) {
-      setState(() {
-        _image = image?.path as File;
-      });
+  Future PickImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    final imageTemp = File(image.path);
+    setState(() {
+      this._image = imageTemp;
     });
   }
 
@@ -53,12 +52,19 @@ class _ButtonState extends State<Button> {
                   height: 400,
                   child: Column(
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          PickImage();
-                        },
-                        child: Text('Select Image'),
-                      ),
+                      _image != null
+                          ? Image.file(
+                              _image!,
+                              width: 150,
+                              height: 150,
+                              fit: BoxFit.cover,
+                            )
+                          : ElevatedButton(
+                              onPressed: () {
+                                PickImage();
+                              },
+                              child: Text('Select Image'),
+                            ),
                       TextField(
                         controller: _name,
                         decoration: const InputDecoration(
@@ -80,7 +86,7 @@ class _ButtonState extends State<Button> {
                       ElevatedButton(
                         onPressed: () {
                           Details details = Details(
-                              image: _image.path,
+                              image: _image!.path,
                               id: '${Random().nextInt(10000)}',
                               name: _name.text,
                               address: _address.text,
