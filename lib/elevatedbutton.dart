@@ -18,7 +18,7 @@ class _ButtonState extends State<Button> {
   TextEditingController _address = TextEditingController();
   TextEditingController _phone = TextEditingController();
   File? _image;
-
+  File? _selected;
   late Box<Details> detailbox;
 
   @override
@@ -33,6 +33,7 @@ class _ButtonState extends State<Button> {
     final imageTemp = File(image.path);
     setState(() {
       this._image = imageTemp;
+      _selected = _image;
     });
   }
 
@@ -58,7 +59,7 @@ class _ButtonState extends State<Button> {
                         onPressed: () {
                           PickImage();
                         },
-                        child: Text('Select Image'),
+                        child: const Text('Select Image'),
                       ),
                       // : Container(
                       //     height: 250,
@@ -109,6 +110,11 @@ class _ButtonState extends State<Button> {
                           Navigator.pop(context);
                         },
                         child: const Text('Save'),
+                      ),
+                      Container(
+                        child: _image == null
+                            ? const Text('No Image Selected')
+                            : Image.file(_selected!, width: 100, height: 100),
                       ),
                     ],
                   ),

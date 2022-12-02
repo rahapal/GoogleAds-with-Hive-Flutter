@@ -14,7 +14,9 @@ Future<void> main() async {
   Hive.init(directory.path);
   Hive.registerAdapter(DetailsAdapter());
   var Dbox = await Hive.openBox<Details>('details');
-  print(Dbox.values);
+  //print(Dbox.values);
+  List<Details> details = Dbox.values.toList();
+
   runApp(
     const MyApp(),
   );
