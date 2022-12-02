@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:hivefinal/models/details.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class Button extends StatefulWidget {
   const Button({super.key});
@@ -100,7 +101,7 @@ class _ButtonState extends State<Button> {
                           onPressed: () {
                             Details details = Details(
                                 image: _image!.path,
-                                id: '${Random().nextInt(10000)}',
+                                id: '${Uuid().v4()}',
                                 name: _name.text,
                                 address: _address.text,
                                 phone: _phone.text);
