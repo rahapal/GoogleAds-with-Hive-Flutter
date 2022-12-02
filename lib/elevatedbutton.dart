@@ -18,7 +18,7 @@ class _ButtonState extends State<Button> {
   TextEditingController _address = TextEditingController();
   TextEditingController _phone = TextEditingController();
   File? _image;
-  File? _selected;
+
   late Box<Details> detailbox;
 
   @override
@@ -27,14 +27,16 @@ class _ButtonState extends State<Button> {
     detailbox = Hive.box('details');
   }
 
-  Future PickImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future PickImage(ImageSource media) async {
+    final image = await ImagePicker().pickImage(source: media);
     if (image == null) return;
     final imageTemp = File(image.path);
+
     setState(() {
-      this._image = imageTemp;
-      _selected = _image;
+      _image = imageTemp;
+      // _selected = _image;
     });
+    return _image;
   }
 
   @override
@@ -48,78 +50,86 @@ class _ButtonState extends State<Button> {
           showDialog(
             context: context,
             builder: (_) {
-              return Dialog(
-                child: SizedBox(
-                  height: 600,
-                  child: Column(
-                    children: [
-                      // _image == null
-                      //     ?
-                      ElevatedButton(
-                        onPressed: () {
-                          PickImage();
-                        },
-                        child: const Text('Select Image'),
-                      ),
-                      // : Container(
-                      //     height: 250,
-                      //     width: 250,
-                      //     child: Image.file(
-                      //       _image!,
-                      //       width: 200,
-                      //       height: 200,
-                      //       fit: BoxFit.cover,
-                      //     ),
-                      //   ),
-                      TextField(
-                        controller: _name,
-                        decoration: const InputDecoration(
-                          labelText: 'Full Name',
+              return StatefulBuilder(builder: (context, setState) {
+                return Dialog(
+                  child: SizedBox(
+                    height: 600,
+                    child: Column(
+                      children: [
+                        // _image == null
+                        //     ?
+                        ElevatedButton(
+                          onPressed: () {
+                            //PickImage();
+                            PickImage(ImageSource.gallery)
+                                .then((value) => setState(() {
+                                      _image = value;
+                                    }));
+                          },
+                          child: const Text('Select Image'),
                         ),
-                      ),
-                      TextField(
-                        controller: _address,
-                        decoration: const InputDecoration(
-                          labelText: 'Adress',
+                        // : Container(
+                        //     height: 250,
+                        //     width: 250,
+                        //     child: Image.file(
+                        //       _image!,
+                        //       width: 200,
+                        //       height: 200,
+                        //       fit: BoxFit.cover,
+                        //     ),
+                        //   ),
+                        TextField(
+                          controller: _name,
+                          decoration: const InputDecoration(
+                            labelText: 'Full Name',
+                          ),
                         ),
-                      ),
-                      TextField(
-                        controller: _phone,
-                        decoration: const InputDecoration(
-                          labelText: 'Contact',
+                        TextField(
+                          controller: _address,
+                          decoration: const InputDecoration(
+                            labelText: 'Address',
+                          ),
                         ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Details details = Details(
-                              image: _image!.path,
-                              id: '${Random().nextInt(10000)}',
-                              name: _name.text,
-                              address: _address.text,
-                              phone: _phone.text);
+                        TextField(
+                          controller: _phone,
+                          decoration: const InputDecoration(
+                            labelText: 'Contact',
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Details details = Details(
+                                image: _image!.path,
+                                id: '${Random().nextInt(10000)}',
+                                name: _name.text,
+                                address: _address.text,
+                                phone: _phone.text);
 
-                          setState(
-                            () {
-                              detailbox.put(details.id, details);
-                            },
-                          );
+                            setState(
+                              () {
+                                detailbox.put(details.id, details);
+                              },
+                            );
 
-                          _name.clear();
-                          _address.clear();
-                          _phone.clear();
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Save'),
-                      ),
-                      Container(
-                        child: _image == null
-                            ? const Text('No Image Selected')
-                            : Image.file(_selected!, width: 100, height: 100),
-                      ),
-                    ],
+                            _name.clear();
+                            _address.clear();
+                            _phone.clear();
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Save'),
+                        ),
+                        _image != null
+                            ? Image.file(
+                                File(_image!.path),
+                                height: 100,
+                                width: 100,
+                              )
+                            : SizedBox.shrink(),
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
+              });
             },
           );
         },

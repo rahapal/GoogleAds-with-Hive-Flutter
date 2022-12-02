@@ -57,12 +57,17 @@ class _ViewPageState extends State<ViewPage> {
                     ),
                     Text(details.address),
                     IconButton(
-                        onPressed: () {
-                          setState(() {
-                            box.deleteAt(index);
-                          });
-                        },
-                        icon: Icon(Icons.delete)),
+                      onPressed: () {
+                        setState(() {
+                          box.deleteAt(index);
+                        });
+                      },
+                      icon: Icon(Icons.delete),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.edit),
+                    ),
                   ],
                 ),
               );
