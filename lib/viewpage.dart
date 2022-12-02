@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
@@ -19,6 +21,17 @@ class _ViewPageState extends State<ViewPage> {
     super.initState();
   }
 
+  dynamic showimage(var index) {
+    return hello.getAt(index)!.image == null
+        ? Image.asset('assets/images/placeholder.png')
+        : Image.file(
+            File(hello.getAt(index)!.image),
+            fit: BoxFit.cover,
+            height: 100,
+            width: 100,
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -34,7 +47,7 @@ class _ViewPageState extends State<ViewPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Image.network(details!.image),
+                    showimage(index),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

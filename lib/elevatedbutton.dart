@@ -49,22 +49,27 @@ class _ButtonState extends State<Button> {
             builder: (_) {
               return Dialog(
                 child: SizedBox(
-                  height: 400,
+                  height: 600,
                   child: Column(
                     children: [
-                      _image != null
-                          ? Image.file(
-                              _image!,
-                              width: 150,
-                              height: 150,
-                              fit: BoxFit.cover,
-                            )
-                          : ElevatedButton(
-                              onPressed: () {
-                                PickImage();
-                              },
-                              child: Text('Select Image'),
-                            ),
+                      // _image == null
+                      //     ?
+                      ElevatedButton(
+                        onPressed: () {
+                          PickImage();
+                        },
+                        child: Text('Select Image'),
+                      ),
+                      // : Container(
+                      //     height: 250,
+                      //     width: 250,
+                      //     child: Image.file(
+                      //       _image!,
+                      //       width: 200,
+                      //       height: 200,
+                      //       fit: BoxFit.cover,
+                      //     ),
+                      //   ),
                       TextField(
                         controller: _name,
                         decoration: const InputDecoration(
