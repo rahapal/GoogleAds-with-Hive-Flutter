@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hivefinal/models/details.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({super.key});
