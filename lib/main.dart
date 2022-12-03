@@ -16,7 +16,7 @@ Future<void> main() async {
   var Dbox = await Hive.openBox<Details>('details');
   //print(Dbox.values);
   List<Details> details = Dbox.values.toList();
-
+  print(details);
   runApp(
     const MyApp(),
   );

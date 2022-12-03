@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hivefinal/editpage.dart';
 import 'package:hivefinal/models/details.dart';
 
 class ViewPage extends StatefulWidget {
@@ -43,7 +44,8 @@ class _ViewPageState extends State<ViewPage> {
             itemBuilder: (context, index) {
               final details = box.getAt(index);
 
-              return Container(
+              return SizedBox(
+                width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -65,7 +67,14 @@ class _ViewPageState extends State<ViewPage> {
                       icon: Icon(Icons.delete),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditPage(),
+                          ),
+                        );
+                      },
                       icon: Icon(Icons.edit),
                     ),
                   ],
