@@ -19,7 +19,7 @@ class _EditPageState extends State<EditPage> {
   TextEditingController _phone = TextEditingController();
 
   late Box<Details> detailsofbox;
-
+  File? _image;
   int index;
   _EditPageState(this.index);
 
@@ -27,6 +27,18 @@ class _EditPageState extends State<EditPage> {
   void initState() {
     super.initState();
     detailsofbox = Hive.box('details');
+  }
+
+  Future PickImage(ImageSource media) async {
+    final image = await ImagePicker().pickImage(source: media);
+    if (image == null) return;
+    final imageTemp = File(image.path);
+
+    setState(() {
+      _image = imageTemp;
+      // _selected = _image;
+    });
+    return _image;
   }
 
   @override
@@ -38,7 +50,13 @@ class _EditPageState extends State<EditPage> {
       body: Center(
           child: Column(
         children: [
-          ElevatedButton(onPressed: () {}, child: Text('Select Image')),
+          ElevatedButton(
+              onPressed: () {
+                PickImage(ImageSource.gallery).then((value) => setState(() {
+                      _image = value;
+                    }));
+              },
+              child: Text('Select Image')),
           TextField(
             controller: _name,
             decoration: const InputDecoration(
@@ -67,7 +85,7 @@ class _EditPageState extends State<EditPage> {
                     name: _name.text,
                     address: _address.text,
                     phone: _phone.text,
-                    image: detailsofbox.getAt(index)!.image);
+                    image: _image!.path);
                 detailsofbox.putAt(index, details);
                 Navigator.pop(context);
                 setState(

@@ -46,7 +46,7 @@ class _ViewPageState extends State<ViewPage> {
 
               return SizedBox(
                 width: double.infinity,
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     showimage(index),
