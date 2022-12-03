@@ -68,10 +68,11 @@ class _ViewPageState extends State<ViewPage> {
                     ),
                     IconButton(
                       onPressed: () {
+                        print(index);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EditPage(),
+                            builder: (context) => EditPage(index: index),
                           ),
                         );
                       },
