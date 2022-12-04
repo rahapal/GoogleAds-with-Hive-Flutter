@@ -6,11 +6,11 @@ import 'package:hivefinal/models/details.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditPage extends StatefulWidget {
-  int index;
-  EditPage({required this.index});
+  Details details;
+  EditPage({required this.details, super.key});
 
   @override
-  State<EditPage> createState() => _EditPageState(index);
+  State<EditPage> createState() => _EditPageState(details: details);
 }
 
 class _EditPageState extends State<EditPage> {
@@ -20,11 +20,14 @@ class _EditPageState extends State<EditPage> {
 
   late Box<Details> detailsofbox;
   File? _image;
-  int index;
-  _EditPageState(this.index);
+
+  _EditPageState({required Details details});
 
   @override
   void initState() {
+    _name.text = widget.details.name;
+    _address.text = widget.details.address;
+    _phone.text = widget.details.phone;
     super.initState();
     detailsofbox = Hive.box('details');
   }
@@ -36,10 +39,13 @@ class _EditPageState extends State<EditPage> {
 
     setState(() {
       _image = imageTemp;
+      hasImageChanged = true;
       // _selected = _image;
     });
     return _image;
   }
+
+  bool hasImageChanged = false;
 
   @override
   Widget build(BuildContext context) {
@@ -79,22 +85,23 @@ class _EditPageState extends State<EditPage> {
             //controller: ,
           ),
           ElevatedButton(
-              onPressed: () {
-                Details details = Details(
-                    id: detailsofbox.getAt(index)!.id,
-                    name: _name.text,
-                    address: _address.text,
-                    phone: _phone.text,
-                    image: _image!.path);
-                detailsofbox.putAt(index, details);
-                Navigator.pop(context);
-                setState(
-                  () {
-                    detailsofbox.put(details.id, details);
-                  },
-                );
-              },
-              child: Text('Save')),
+            onPressed: () {
+              Details details = Details(
+                  id: widget.details.id,
+                  name: _name.text,
+                  address: _address.text,
+                  phone: _phone.text,
+                  image: hasImageChanged ? _image!.path : widget.details.image);
+              //detailsofbox.putAt(index, details);
+              Navigator.pop(context);
+              setState(
+                () {
+                  detailsofbox.put(details.id, details);
+                },
+              );
+            },
+            child: Text('Save'),
+          ),
         ],
       )),
     );

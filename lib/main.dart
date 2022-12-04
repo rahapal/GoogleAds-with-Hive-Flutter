@@ -11,6 +11,8 @@ import 'home.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Directory directory = await getApplicationDocumentsDirectory();
+  String path = directory.path;
+  print(path);
   Hive.init(directory.path);
   Hive.registerAdapter(DetailsAdapter());
   var Dbox = await Hive.openBox<Details>('details');
