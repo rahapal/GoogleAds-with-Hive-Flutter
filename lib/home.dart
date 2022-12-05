@@ -12,6 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //Ads in banner
+  // line17-39 and nedd to configure in info.plist
   BannerAd? _bannerAd;
   bool isLoad = false;
   @override
@@ -19,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
     _bannerAd = BannerAd(
       size: AdSize.banner,
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      adUnitId: 'ca-app-pub-3940256099942544/2934735716',
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           setState(() {
@@ -48,6 +50,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             ViewPage(),
             Button(),
+            //Ads banner 54-61
             isLoad
                 ? Container(
                     height: 150,
@@ -55,7 +58,10 @@ class _HomePageState extends State<HomePage> {
                       ad: _bannerAd!,
                     ),
                   )
-                : SizedBox(),
+                : Container(
+                    height: 30,
+                    child: Text('Ads not loading'),
+                  ),
           ],
         ),
       ),
