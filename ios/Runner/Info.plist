@@ -50,6 +50,6 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to acess your photos</string>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<string>ca-app-pub-3940256099942544~3347511713</string>
 </dict>
 </plist>

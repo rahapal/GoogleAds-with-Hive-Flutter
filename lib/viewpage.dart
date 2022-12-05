@@ -15,31 +15,7 @@ class ViewPage extends StatefulWidget {
 }
 
 class _ViewPageState extends State<ViewPage> {
-  BannerAd? _bannerAd;
-  bool isLoad = false;
   late Box<Details> hello;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/2934735716',
-      request: AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            isLoad = true;
-          });
-          print('Ad loaded');
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-    );
-    _bannerAd!.load();
-  }
 
   @override
   void initState() {
@@ -105,15 +81,6 @@ class _ViewPageState extends State<ViewPage> {
                       },
                       icon: Icon(Icons.edit),
                     ),
-                    Spacer(),
-                    isLoad
-                        ? Container(
-                            height: 50,
-                            child: AdWidget(
-                              ad: _bannerAd!,
-                            ),
-                          )
-                        : SizedBox(),
                   ],
                 ),
               );
