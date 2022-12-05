@@ -23,19 +23,5 @@ class Details {
     required this.image,
   });
 
-  Details copyWith({
-    String? id,
-    String? name,
-    String? address,
-    String? phone,
-    String? image,
-  }) {
-    return Details(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      address: address ?? this.address,
-      phone: phone ?? this.phone,
-      image: image ?? this.image,
-    );
-  }
+  
 }
