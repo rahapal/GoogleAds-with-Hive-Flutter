@@ -18,9 +18,8 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/2934735716',
-      request: AdRequest(),
       size: AdSize.banner,
+      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           setState(() {
@@ -32,6 +31,7 @@ class _HomePageState extends State<HomePage> {
           ad.dispose();
         },
       ),
+      request: const AdRequest(),
     );
     _bannerAd!.load();
   }
@@ -48,10 +48,9 @@ class _HomePageState extends State<HomePage> {
           children: [
             ViewPage(),
             Button(),
-            Spacer(),
             isLoad
                 ? Container(
-                    height: 30,
+                    height: 60,
                     child: AdWidget(
                       ad: _bannerAd!,
                     ),
