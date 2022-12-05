@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hivefinal/editpage.dart';
@@ -14,7 +15,30 @@ class ViewPage extends StatefulWidget {
 }
 
 class _ViewPageState extends State<ViewPage> {
+  BannerAd? _bannerAd;
+  bool isLoad = false;
   late Box<Details> hello;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _bannerAd = BannerAd(
+      adUnitId: 'ca-app-pub-3940256099942544/2934735716',
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isLoad = true;
+          });
+          print('Ad loaded');
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+        },
+      ),
+    );
+  }
 
   @override
   void initState() {
