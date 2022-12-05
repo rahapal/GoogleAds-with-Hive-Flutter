@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
             Button(),
             isLoad
                 ? Container(
-                    height: 60,
+                    height: 150,
                     child: AdWidget(
                       ad: _bannerAd!,
                     ),
