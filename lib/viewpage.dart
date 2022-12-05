@@ -38,6 +38,7 @@ class _ViewPageState extends State<ViewPage> {
         },
       ),
     );
+    _bannerAd!.load();
   }
 
   @override
@@ -104,6 +105,15 @@ class _ViewPageState extends State<ViewPage> {
                       },
                       icon: Icon(Icons.edit),
                     ),
+                    Spacer(),
+                    isLoad
+                        ? Container(
+                            height: 50,
+                            child: AdWidget(
+                              ad: _bannerAd!,
+                            ),
+                          )
+                        : SizedBox(),
                   ],
                 ),
               );
