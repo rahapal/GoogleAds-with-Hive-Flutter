@@ -9,6 +9,22 @@ import 'package:path_provider/path_provider.dart';
 
 import 'home.dart';
 
+AppOpenAd? openAd;
+
+Future<void> loadAd() async {
+  await AppOpenAd.load(
+      adUnitId: 'ca-app-pub-3940256099942544/3419835294',
+      request: const AdRequest(),
+      adLoadCallback: AppOpenAdLoadCallback(onAdLoaded: (ad) {
+        print('Ad loaded');
+        openAd = ad;
+        openAd!.show();
+      }, onAdFailedToLoad: ((error) {
+        print('Ad failed');
+      })),
+      orientation: AppOpenAd.orientationPortrait);
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();

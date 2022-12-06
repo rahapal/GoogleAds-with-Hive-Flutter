@@ -59,8 +59,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 : Container(
-                    height: 30,
-                    child: Text('Ads not loading'),
+                    child: Text('Ads not Loading'),
                   ),
           ],
         ),
