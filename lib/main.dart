@@ -38,9 +38,7 @@ Future<void> main() async {
   //print(Dbox.values);
   List<Details> details = Dbox.values.toList();
   print(details);
-  runApp(
-    const MyApp(),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
