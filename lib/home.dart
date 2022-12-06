@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
             //Ads banner 54-61
             isLoad
                 ? Container(
-                    height: 150,
+                    height: 50,
                     child: AdWidget(
                       ad: _bannerAd!,
                     ),

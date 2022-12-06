@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
+import 'package:hivefinal/main.dart';
 import 'package:hivefinal/models/details.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,11 +22,30 @@ class _ButtonState extends State<Button> {
   File? _image;
 
   late Box<Details> detailbox;
+  RewardedAd? _rewardedAd;
+  bool isLaoded = false;
 
   @override
   void initState() {
     super.initState();
     detailbox = Hive.box('details');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    RewardedAd.load(
+        adUnitId: 'ca-app-pub-3940256099942544/5224354917',
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: ((ad) {
+          print('Ad loaded');
+          _rewardedAd = ad;
+          setState(() {
+            isLaoded = true;
+          });
+        }), onAdFailedToLoad: ((error) {
+          print('Not loaded');
+        })));
   }
 
   Future PickImage(ImageSource media) async {
@@ -46,7 +67,6 @@ class _ButtonState extends State<Button> {
       child: ElevatedButton(
         child: const Text('Add Item'),
         onPressed: () {
-          print(detailbox.values);
           showDialog(
             context: context,
             builder: (_) {
@@ -98,6 +118,11 @@ class _ButtonState extends State<Button> {
                         ),
                         ElevatedButton(
                           onPressed: () {
+                            _rewardedAd!.show(
+                                onUserEarnedReward: ((ad, reward) {
+                              print('User has watched it');
+                            }));
+                            print(detailbox.values);
                             Details details = Details(
                                 image: _image!.path,
                                 id: '${Uuid().v4()}',
