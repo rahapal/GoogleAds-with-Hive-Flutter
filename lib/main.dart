@@ -28,6 +28,7 @@ Future<void> loadAd() async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  await loadAd();
   Directory directory = await getApplicationDocumentsDirectory();
   String path = directory.path;
   print(path);
