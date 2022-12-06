@@ -118,10 +118,6 @@ class _ButtonState extends State<Button> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            _rewardedAd!.show(
-                                onUserEarnedReward: ((ad, reward) {
-                              print('User has watched it');
-                            }));
                             print(detailbox.values);
                             Details details = Details(
                                 image: _image!.path,
@@ -140,6 +136,10 @@ class _ButtonState extends State<Button> {
                             _address.clear();
                             _phone.clear();
                             Navigator.pop(context);
+                            _rewardedAd!.show(
+                                onUserEarnedReward: ((ad, reward) {
+                              print('User has watched it');
+                            }));
                           },
                           child: const Text('Save'),
                         ),
